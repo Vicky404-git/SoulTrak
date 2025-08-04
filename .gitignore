@@ -5,6 +5,14 @@ venv/
 *.pyc
 __pycache__/
 
+.vs/
+ai_brian/vectorstore/
+ai_brian/A-Implementation.py
+ai_brian/__init.py
+ai_brian/RAG/
+
+.gitignore
+
 # OS & Editor junk
 .DS_Store
 Thumbs.db
