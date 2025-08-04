@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SoulTrak</title>
+  <link id="theme-style" rel="stylesheet" href="{{ url_for('static', filename='style-solo.css') }}">
+</head>
+<body>
+
+  <header>
+    <nav class="navbar">
+      <div class="nav-left">
+        <a href="{{ url_for('home') }}"><h1>SoulTrak</h1></a>
+      </div>
+
+      <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+      <div class="nav-right" id="nav-links">
+        <a href="{{ url_for('dashboard') }}">🏠 Dashboard</a>
+        <a href="{{ url_for('ai_page') }}">🤖 AI</a>
+        <a href="{{ url_for('progress') }}">📈 Progress</a>
+        <a href="{{ url_for('settings') }}">⚙️ Settings</a>
+        <a href="#">👤 Profile</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h3>Welcome to <i>SoulTrak</i></h3>
+    <p>Your AI-powered life planner & tracker.</p>
+    <a href="#features" class="cta">Explore Features ↓</a>
+  </section>
+
+  <section class="features" id="features">
+    <h2>📌 Why Use SoulTrak?</h2>
+    <ul>
+      <li>📊 Daily / Weekly Logs</li>
+      <li>🤖 AI Feedback (Planner, Motivation, Time Management)</li>
+      <li>🔁 Habit Tracking</li>
+      <li>📈 Visual Progress (charts, summaries)</li>
+      <li>🔒 Secure + Private</li>
+    </ul>
+  </section>
+
+  <section class="how-it-works">
+    <h2>⚙️ How It Works</h2>
+    <ol>
+      <li>Upload your log (or auto-track)</li>
+      <li>Get AI insights</li>
+      <li>Improve focus and routines</li>
+    </ol>
+  </section>
+
+  <footer>
+    <p>Made with ❤️ by Vikas Dhruw • SoulTrak 2025</p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById("nav-links");
+      nav.classList.toggle("show");
+    }
+
+    function switchTheme(theme) {
+      const themeLink = document.getElementById("theme-style");
+      if (theme === "dark") {
+        themeLink.href = "{{ url_for('static', filename='style-dark.css') }}";
+        localStorage.setItem("theme", "dark");
+      } else {
+        themeLink.href = "{{ url_for('static', filename='style-solo.css') }}";
+        localStorage.setItem("theme", "solo");
+      }
+    }
+
+    window.onload = () => {
+      const savedTheme = localStorage.getItem("theme") || "solo";
+      switchTheme(savedTheme);
+
+      const select = document.querySelector("select");
+      if (select) select.value = savedTheme;
+    };
+  </script>
+
+</body>
+</html>

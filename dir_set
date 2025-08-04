@@ -1,0 +1,45 @@
+SoulTrak/
+│
+├── app/                        # Core application logic
+│   ├── data_manage.py         # pandas logic: read/write/track/edit CSV
+│   ├── trak_utils.py        # helper functions (date/time ops, summaries)
+│   └── __init__.py
+│
+├── ai_brain/                  # LangChain / Groq logic
+│   ├── retriver.py             # RAG
+│   ├── csvpln.py # AI planning logic (daily feedback etc.) non RAG
+│   ├── embedder.py             # RAG
+│   ├── planner.py              # AI planning logic (daily feedback etc.) RAG
+│   ├── prompt_templates.py     # Prompts stored cleanly
+│   └── __init__.py
+│
+├── ui/                         # Frontend (can swap Streamlit / Flask here)
+│   ├── fonts  folder for fonts
+│   ├── icons  folder for images
+│   ├── style-dark.css
+│   ├── style-solo.css
+│   ├── ai.html
+│   ├── dash.html
+│   ├── index.html
+│   ├── settings.html
+│   ├── progress.html
+│   ├── streamlit_ui.py         # Current UI (Streamlit)
+│   ├── flask_ui.py             # Future Flask version (optional)
+│   └── __init__.py
+│
+├── assets/                     # Optional: images, icons, styles
+│
+├── data/                       # Tracked CSV logs (your `trak.csv`)
+│   └── trak.csv
+│
+├── config/                     # .env, config files
+│   └── .env
+│
+├── main.py                     # Entry point (calls Streamlit or CLI)
+├── requirements.txt
+└── README.md
+
+
+
+
+ 

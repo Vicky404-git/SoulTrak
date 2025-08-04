@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SoulTrak - Dashboard</title>
+  <link id="theme-style" rel="stylesheet" href="{{ url_for('static', filename='style-dark.css') }}">
+</head>
+<body>
+
+  <header>
+    <nav class="navbar">
+      <div class="nav-left">
+        <a href="{{ url_for('home') }}"><h1>SoulTrak</h1></a>
+      </div>
+      <div class="hamburger" onclick="toggleMenu()">☰</div>
+      <div class="nav-right" id="nav-links">
+        <a href="{{ url_for('dashboard') }}">📊 Dashboard</a>
+        <a href="{{ url_for('ai_page') }}">🤖 AI</a>
+        <a href="{{ url_for('progress') }}">📈 Progress</a>
+        <a href="{{ url_for('settings') }}">⚙️ Settings</a>
+        <a href="#">👤 Profile</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ========== Dashboard Section ========== -->
+  <section class="dashboard" id="dashboard">
+    <h2>📊 Dashboard</h2>
+    <div class="cards">
+      <div class="card">🕒 Total Hours Tracked: <strong>320</strong></div>
+      <div class="card">🔥 Streak: <strong>7 days</strong></div>
+      <div class="card">✅ Tasks Completed: <strong>56</strong></div>
+    </div>
+  </section>
+
+  <!-- ========== Logs Section ========== -->
+  <section class="logs" id="logs">
+    <h2>📁 Logs</h2>
+    <div id="csvTable">📄 Your CSV data will appear here.</div>
+  </section>
+
+  <!-- ========== Planner Section ========== -->
+  <section class="planner" id="planner">
+    <h2>🗓️ Planner</h2>
+    <label for="promptSelect">Choose a prompt:</label>
+    <select id="promptSelect">
+      <option value="daily">🌞 Daily Feedback</option>
+      <option value="weekly">📅 Weekly Reflection</option>
+      <option value="motivation">🔥 Motivation</option>
+    </select>
+    <button onclick="generateAI()">⚙️ Generate</button>
+    <div id="aiFeedback">💬 AI Feedback will show here...</div>
+  </section>
+
+  <footer>
+    <p>Made with ❤️ by Vikas Dhruw • SoulTrak 2025</p>
+  </footer>
+
+  <!-- JS Scripts -->
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById("nav-links");
+      nav.classList.toggle("show");
+    }
+
+    function switchTheme(theme) {
+      const themeLink = document.getElementById("theme-style");
+      if (theme === "dark") {
+        themeLink.href = "{{ url_for('static', filename='style-dark.css') }}";
+        localStorage.setItem("theme", "dark");
+      } else {
+        themeLink.href = "{{ url_for('static', filename='style-solo.css') }}";
+        localStorage.setItem("theme", "solo");
+      }
+    }
+
+    window.onload = () => {
+      const savedTheme = localStorage.getItem("theme") || "solo";
+      switchTheme(savedTheme);
+
+      const select = document.querySelector("select");
+      if (select) select.value = savedTheme;
+
+      loadCSV();
+    };
+
+    function loadCSV() {
+      fetch("{{ url_for('static', filename='trak.csv') }}")
+        .then(response => {
+          if (!response.ok) throw new Error("CSV not found");
+          return response.text();
+        })
+        .then(data => {
+          const rows = data.trim().split("\n").map(r => r.split(","));
+          let html = "<table border='1'>";
+          rows.forEach((row, i) => {
+            html += "<tr>";
+            row.forEach(cell => {
+              html += `<${i === 0 ? "th" : "td"}>${cell}</${i === 0 ? "th" : "td"}>`;
+            });
+            html += "</tr>";
+          });
+          html += "</table>";
+          document.getElementById("csvTable").innerHTML = html;
+        })
+        .catch(error => {
+          document.getElementById("csvTable").innerHTML =
+            "<p>Error loading CSV: " + error.message + "</p>";
+        });
+    }
+
+    function generateAI() {
+      const prompt = document.getElementById("promptSelect").value;
+      const responses = {
+        daily: "You did well today! Keep up your consistency and try to focus more during study hours.",
+        weekly: "This week showed strong progress. Try batching similar tasks for more efficiency.",
+        motivation: "You're doing great! 💪 Stay consistent. Take breaks and come back stronger!"
+      };
+      document.getElementById("aiFeedback").innerText = responses[prompt];
+    }
+  </script>
+
+</body>
+</html>

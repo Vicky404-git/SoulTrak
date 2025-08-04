@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Spectral:wght@500&display=swap');
+
+body {
+  margin: 0;
+  background-color: #0b0c10;
+  color: #d7ccc8;
+  font-family: 'Spectral', serif;
+}
+
+header {
+  padding: 1rem 2rem;
+  background-color: #0e0e0e;
+  border-bottom: 2px solid #d35400;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0 15px #d35400;
+}
+
+.nav-left h1 {
+  font-size: 2rem;
+  color: #d7ccc8;
+  letter-spacing: 1px;
+  text-shadow: 0 0 5px #d35400;
+}
+
+.nav-right a {
+  color: #d7ccc8;
+  margin: 0 10px;
+  text-decoration: none;
+  position: relative;
+  font-weight: 500;
+}
+
+.nav-right a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #d35400;
+  transition: width 0.3s ease;
+}
+
+.nav-right a:hover::after {
+  width: 100%;
+}
+
+.hamburger {
+  display: none;
+  font-size: 1.5rem;
+  color: #d7ccc8;
+  cursor: pointer;
+}
+
+.hero {
+  padding: 4rem 1rem;
+  text-align: center;
+  background: url('https://wallpapercave.com/wp/wp3930042.jpg') no-repeat center;
+  background-size: cover;
+  box-shadow: inset 0 0 100px #000000;
+}
+
+.hero h3 {
+  font-size: 2.5rem;
+  color: #d7ccc8;
+  text-shadow: 0 0 10px #000000;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: #999;
+}
+
+.cta {
+  margin-top: 1.5rem;
+  padding: 0.6rem 1.2rem;
+  background-color: #d35400;
+  color: #0b0c10;
+  border: none;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 0 10px #d35400;
+  transition: 0.3s ease;
+}
+
+.cta:hover {
+  background-color: transparent;
+  border: 1px solid #d35400;
+  color: #d35400;
+}
+
+.section {
+  padding: 2rem 1rem;
+  max-width: 800px;
+  margin: auto;
+  background-color: #111;
+  border-left: 4px solid #d35400;
+  margin-top: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #222;
+}
+
+footer {
+  padding: 1rem;
+  text-align: center;
+  background-color: #0e0e0e;
+  color: #5d5d5d;
+  font-size: 0.9rem;
+}
+
+/* Mobile Menu */
+@media (max-width: 768px) {
+  .nav-right {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: #0e0e0e;
+  }
+
+  .nav-right.show {
+    display: flex;
+  }
+
+  .hamburger {
+    display: block;
+  }
+}
+
+.nav-left h1 {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid #fff;
+  animation: typing 2s steps(10), blink 0.75s step-end infinite;
+  font-family: 'Courier New', monospace;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 10ch }
+}
+
+@keyframes blink {
+  50% { border-color: transparent }
+}
+
+
+.cards {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin: 20px 0;
+}
+/* Keep your card design consistent */
+.card {
+  background-color: #1b1b1b;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #d35400;
+  margin: 1rem 0;
+}
+
+/* Table container as card */
+table {
+  background-color: #1b1b1b;
+  color: white;
+  border-collapse: separate;
+  border-spacing: 0 15px; /* space between rows like cards */
+  padding: 1rem;
+  border-radius: 10px;
+  width: 100%;
+  box-shadow: 0 0 10px #d35400;
+}
+
+/* Table headers and cells styled like mini-cards */
+th, td {
+  padding: 12px 18px;
+  text-align: center;
+  background-color: #252525;
+  border-radius: 12px;
+  border: 2px solid #d35400;
+}
+
+/* Optional: Hover effect on rows */
+tr:hover td {
+  background-color: #2d2d2d;
+  transition: background 0.2s ease-in-out;
+}
+
+/* Button + select styling */
+select, button {
+  margin-top: 10px;
+  padding: 10px 16px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  background-color: #d35400;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #8b0000; /* dark crimson red */
+  color: #f0e68c;            /* pale gold, like ember glow */
+  box-shadow: 0 0 10px #ff4500; /* fiery glow */
+  transition: 0.3s ease;
+}

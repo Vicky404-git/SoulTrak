@@ -1,0 +1,140 @@
+<!-- E:\Habit Tracker\SoulTrak\UI\ai.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SoulTrak: AI View</title>
+  <link id="theme-style" rel="stylesheet" href="{{ url_for('static', filename='style-solo.css') }}">
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #444;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #222;
+    }
+
+    .error {
+      color: red;
+      margin-top: 20px;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      background-color: #1e1e1e;
+      padding: 15px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <nav class="navbar">
+      <div class="nav-left">
+        <a href="{{ url_for('home') }}"><h1>SoulTrak</h1></a>
+      </div>
+
+      <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+      <div class="nav-right" id="nav-links">
+        <a href="{{ url_for('dashboard') }}">🏠 Dashboard</a>
+        <a href="{{ url_for('ai_page') }}">🤖 AI</a>
+        <a href="{{ url_for('progress') }}">📈 Progress</a>
+        <a href="{{ url_for('settings') }}">⚙️ Settings</a>
+        <a href="#">👤 Profile</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <section class="hero">
+    <h2>📊 SoulTrak: AI-Based Daily Tracker</h2>
+    <p>Your logs, enhanced with brain-like AI feedback.</p>
+    <div id="table-container">Loading data...</div>
+
+  {% if ai_feedback %}
+    <h2>🤖 AI Feedback</h2>
+    <pre>{{ ai_feedback }}</pre>
+  {% else %}
+    <p><a href="/ai/with_ai" style="color: #00bfff;">Click here to run AI analysis</a></p>
+  {% endif %}
+  </section>
+
+  
+
+  <div class="error" id="error-msg"></div>
+
+  <!-- JS -->
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById("nav-links");
+      nav.classList.toggle("show");
+    }
+
+    function switchTheme(theme) {
+      const themeLink = document.getElementById("theme-style");
+      if (theme === "dark") {
+        themeLink.href = "{{ url_for('static', filename='style-dark.css') }}";
+        localStorage.setItem("theme", "dark");
+      } else {
+        themeLink.href = "{{ url_for('static', filename='style-solo.css') }}";
+        localStorage.setItem("theme", "solo");
+      }
+    }
+
+    window.onload = () => {
+      const savedTheme = localStorage.getItem("theme") || "solo";
+      switchTheme(savedTheme);
+    };
+
+    // Load tracking table
+    fetch("/get_trak_data")
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          document.getElementById("error-msg").textContent = data.error;
+          return;
+        }
+
+        if (data.length === 0) {
+          document.getElementById("table-container").innerHTML = "No tracking data found.";
+          return;
+        }
+
+        const headers = Object.keys(data[0]);
+        let tableHTML = "<table><thead><tr>";
+        headers.forEach(header => tableHTML += `<th>${header}</th>`);
+        tableHTML += "</tr></thead><tbody>";
+
+        data.forEach(row => {
+          tableHTML += "<tr>";
+          headers.forEach(header => tableHTML += `<td>${row[header]}</td>`);
+          tableHTML += "</tr>";
+        });
+
+        tableHTML += "</tbody></table>";
+        document.getElementById("table-container").innerHTML = tableHTML;
+      })
+      .catch(error => {
+        document.getElementById("error-msg").textContent = "Error loading data: " + error;
+      });
+  </script>
+
+</body>
+</html>
