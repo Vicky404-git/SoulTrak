@@ -1,10 +1,11 @@
+<!-- SoulTrak\UI\templates\settings.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SoulTrak - Settings</title>
-  <link id="theme-style" rel="stylesheet" href="{{ url_for('static', filename='style-solo.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style-' + theme + '.css') }}">
 </head>
 <body>
 
@@ -13,8 +14,7 @@
       <div class="nav-left">
         <a href="{{ url_for('home') }}"><h1>SoulTrak</h1></a>
       </div>
-      <div class="hamburger" onclick="toggleMenu()">☰</div>
-      <div class="nav-right" id="nav-links">
+      <div class="nav-right">
         <a href="{{ url_for('dashboard') }}">📊 Dashboard</a>
         <a href="{{ url_for('ai_page') }}">🤖 AI</a>
         <a href="{{ url_for('progress') }}">📈 Progress</a>
@@ -26,42 +26,20 @@
 
   <section class="hero">
     <h2>🎨 Theme Settings</h2>
-    <select onchange="switchTheme(this.value)">
-      <option value="solo">🌌 Solo Leveling</option>
-      <option value="dark">🔥 Dark Souls</option>
-    </select>
+    <form method="POST">
+  <label for="theme">Choose Theme:</label>
+  <select name="theme" id="theme">
+    <option value="solo" {% if theme == "solo" %}selected{% endif %}>Solo</option>
+    <option value="dark" {% if theme == "dark" %}selected{% endif %}>Dark</option>
+  </select>
+  <button type="submit">Save</button>
+</form>
+
   </section>
 
   <footer>
     <p>Made with ❤️ by Vikas Dhruw • SoulTrak 2025</p>
   </footer>
-
-  <script>
-    function toggleMenu() {
-      const nav = document.getElementById("nav-links");
-      nav.classList.toggle("show");
-    }
-
-    function switchTheme(theme) {
-      const themeLink = document.getElementById("theme-style");
-      if (theme === "dark") {
-        themeLink.href = "{{ url_for('static', filename='style-dark.css') }}";
-        localStorage.setItem("theme", "dark");
-      } else {
-        themeLink.href = "{{ url_for('static', filename='style-solo.css') }}";
-        localStorage.setItem("theme", "solo");
-      }
-    }
-
-    // Load saved theme on page load
-    window.onload = () => {
-      const savedTheme = localStorage.getItem("theme") || "solo";
-      switchTheme(savedTheme);
-
-      const select = document.querySelector("select");
-      if (select) select.value = savedTheme;
-    };
-  </script>
 
 </body>
 </html>

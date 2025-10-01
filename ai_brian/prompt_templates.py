@@ -1,7 +1,4 @@
-
-
 #SoulTrak/ai_brain/prompt_templates.py
-
 
 Daily_Feedback_Prompt = """You are my personal productivity coach and AI assistant. I will share my activity log for today.
 
