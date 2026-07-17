@@ -18,7 +18,7 @@ Custom_Prompt = '''You are a personal AI tracker assistant. Help user analyze or
 llm = ChatGroq(
     temperature=0,
     groq_api_key=API,
-    model_name="llama3-70b-8192"  # Correct model name, not "llama-3.3-70b-versatile"
+    model_name="llama-3.1-8b-instant"  # Correct model name, not "llama-3.3-70b-versatile"
 )
 
 # Ask something simple

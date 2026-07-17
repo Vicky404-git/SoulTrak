@@ -1,60 +1,57 @@
-# Virtual environment
-trak/
+# =========================
+# Virtual Environments
+# =========================
 env/
 venv/
+.venv/
+.env
+*.env
+
+# =========================
+# Python & Cache
+# =========================
 *.pyc
+*.py[cod]
 __pycache__/
+**/__pycache__/
+.pytest_cache/
 
-.vs/
+# =========================
+# Data & Databases
+# =========================
+# Ignore all CSVs to protect personal tracker data
+*.csv
+*.sqlite3
+*.db
+*.db-journal
+*.json
+
+# =========================
+# Project Specific (SoulTrak)
+# =========================
 ai_brian/vectorstore/
-ai_brian/A-Implementation.py
-ai_brian/__init.py
+ai_brian/A-Implement.py
 ai_brian/RAG/
+trak/
 
-.gitignore
-
-# OS & Editor junk
+# =========================
+# IDEs & System Files
+# =========================
+.vscode/
+.vs/
+.idea/
 .DS_Store
 Thumbs.db
 *.swp
 *.swo
 *.bak
 
-# VS Code settings
-.vscode/
-
-# Logs and outputs
+# =========================
+# Logs & Build Artifacts
+# =========================
 *.log
 *.tmp
-
-# Compiled files
-*.py[cod]
-*.so
-
-# Environment files
-.env
-*.env
-
-# CSV or local DB files
-*.sqlite3
-*.db
-*.csv
-*.json
-
-# Flask cache / sessions
-instance/
-*.db-journal
-
-# Mac system files
-Icon?
-
-# PyInstaller build artifacts
 build/
 dist/
 *.spec
-
-# Jupyter Notebook checkpoints
-.ipynb_checkpoints/
-
-# __pycache__ inside all folders
-**/__pycache__/
+instance/
