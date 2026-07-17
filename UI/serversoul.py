@@ -69,7 +69,8 @@ def ai_page():
             selected_prompt = PROMPT_OPTIONS["Daily Feedback"]
 
         try:
-            ai_feedback = csvpln.generate_output(selected_prompt, df)
+            cache_key = prompt_choice if prompt_choice in PROMPT_OPTIONS else "Custom"
+            ai_feedback = csvpln.generate_output(selected_prompt, df, prompt_key=cache_key)
         except Exception as e:
             ai_feedback = f"Error generating insights: {str(e)}"
 
